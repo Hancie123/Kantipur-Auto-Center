@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Session;
 
 class logincontroller extends Controller
 {
@@ -35,7 +36,8 @@ class logincontroller extends Controller
        elseif($credentials['email']==$users->email && $credentials['password']==$users->password){
         Session::put('email',$credentials['email']);
         Session::put('password',$credentials['password']);
-        return back()->with('success','You have successfully login to the system');
+        Session::put('name',$users->name);
+        return redirect('admin/dashboard')->with('success','You have successfully login to the system');
        }
        else {
         return back()->with('fail','Incorrect email and password!');

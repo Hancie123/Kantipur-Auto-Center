@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\logincontroller;
+use App\Http\Controllers\dashboardcontroller;
+use App\Http\Controllers\customercontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,10 @@ use App\Http\Controllers\logincontroller;
 Route::get('/',[logincontroller::class,'userlogin']);
 
 Route::post('/',[logincontroller::class,'login']);
+
+Route::get('admin/dashboard',[dashboardcontroller::class,'dashboard']);
+
+Route::get('admin/customer/createaccount',[customercontroller::class,'viewcustomerform']);
+Route::post('admin/customer/createaccount',[customercontroller::class,'insertdata']);
+Route::get('admin/customer/view',[customercontroller::class,'viewcustomerdata']);
+Route::get('/admin/customer/{customerId}/edit', 'customercontroller@edit')->name('customer.edit');
