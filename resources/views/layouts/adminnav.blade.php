@@ -62,6 +62,15 @@
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
 
+
+                    <div id="battery">
+                        <div id="charge"></div>
+                        <div id="charge-level"></div>
+                    </div>
+                    <div id="charging-time"></div>
+
+
+
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                             <img src="{{url('assets/img/logo.png')}}" alt="profile" />
@@ -164,8 +173,8 @@
                                 <li class="nav-item"> <a class="nav-link" href="{{url('admin/racks/create')}}">Create
                                         New Racks</a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products/view')}}">View
-                                        Racks</a>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/steps/create')}}">Create
+                                        New Steps</a>
                                 </li>
 
                             </ul>
@@ -259,3 +268,121 @@
                     </li>
                 </ul>
             </nav>
+
+            <style>
+            #battery {
+                box-sizing: content-box;
+                height: 1.8em;
+                width: 4.5em;
+                border: 0.2em solid #246aed;
+                margin: auto;
+                border-radius: 0.4em;
+                position: relative;
+                display: grid;
+                place-items: center;
+            }
+
+            #battery:before {
+                position: absolute;
+                content: "";
+                height: 1.5em;
+                width: 0.5em;
+                background-color: #246aed;
+                margin: auto;
+                top: 0;
+                bottom: 0;
+                right: -0.6em;
+                border-radius: 0 0.2em 0.2em 0;
+            }
+
+            #charge {
+                position: absolute;
+                height: 1.3em;
+                width: 4em;
+                background-color: #246aed;
+                top: 0.3em;
+                left: 0.4em;
+            }
+
+            #charge-level {
+                position: absolute;
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+
+            #charging-time {
+                text-align: center;
+                font-size: 1.2em;
+                margin-top: 0.8em;
+            }
+
+            .active {
+                animation: charge-animation 3s infinite linear;
+            }
+
+            @keyframes charge-animation {
+                0% {
+                    width: 0;
+                }
+
+                100% {
+                    width: 4em;
+                }
+            }
+            </style>
+
+
+            <script>
+            const chargeLevel = document.getElementById("charge-level");
+            const charge = document.getElementById("charge");
+            const chargingTimeRef = document.getElementById("charging-time");
+
+            window.onload = () => {
+                //For browsers that don't support the battery status API
+                if (!navigator.getBattery) {
+                    alert("Battery Status Api Is Not Supported In Your Browser");
+                    return false;
+                }
+            };
+
+            navigator.getBattery().then((battery) => {
+                function updateAllBatteryInfo() {
+                    updateChargingInfo();
+                    updateLevelInfo();
+                }
+                updateAllBatteryInfo();
+
+                //When the charging status changes
+                battery.addEventListener("chargingchange", () => {
+                    updateAllBatteryInfo();
+                });
+
+                //When the Battery Levvel Changes
+                battery.addEventListener("levelchange", () => {
+                    updateAllBatteryInfo();
+                });
+
+                function updateChargingInfo() {
+                    if (battery.charging) {
+                        charge.classList.add("active");
+                        chargingTimeRef.innerText = "";
+                    } else {
+                        charge.classList.remove("active");
+
+                        //Display time left to discharge only when it is a integer value i.e not infinity
+                        if (parseInt(battery.dischargingTime)) {
+                            let hr = parseInt(battery.dischargingTime / 3600);
+                            let min = parseInt(battery.dischargingTime / 60 - hr * 60);
+                            chargingTimeRef.innerText = `${hr}hr ${min}mins remaining`;
+                        }
+                    }
+                }
+
+                //Updating battery level
+                function updateLevelInfo() {
+                    let batteryLevel = `${parseInt(battery.level * 100)}%`;
+                    charge.style.width = batteryLevel;
+                    chargeLevel.textContent = batteryLevel;
+                }
+            });
+            </script>

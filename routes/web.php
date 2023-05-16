@@ -5,6 +5,7 @@ use App\Http\Controllers\logincontroller;
 use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\customercontroller;
 use App\Http\Controllers\rackcontroller;
+use App\Http\Controllers\stepscontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,6 @@ Route::post('/admin/customer', [customerController::class, 'editCustomer'])->nam
 Route::get('admin/racks/create',[rackcontroller::class,'viewcreaterackpage']);
 Route::get('admin/racks/table',[rackcontroller::class,'viewdata']);
 Route::post('admin/racks/create',[rackcontroller::class,'insertdata']);
+
+Route::get('admin/steps/create',[stepscontroller::class,'viewcreatestepspage']);
+Route::post('admin/steps/create',[stepscontroller::class,'insertdata']);
