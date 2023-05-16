@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\logincontroller;
 use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\customercontroller;
+use App\Http\Controllers\rackcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::post('/',[logincontroller::class,'login']);
 Route::get('admin/dashboard',[dashboardcontroller::class,'dashboard']);
 
 Route::get('admin/customer/createaccount',[customercontroller::class,'viewcustomerform']);
+Route::get('admin/customer/view_all_customers',[customercontroller::class,'viewcustomerpage']);
 Route::post('admin/customer/createaccount',[customercontroller::class,'insertdata']);
 Route::get('admin/customer/view',[customercontroller::class,'viewcustomerdata']);
-Route::get('/admin/customer/{customerId}/edit', 'customercontroller@edit')->name('customer.edit');
+Route::get('/admin/customer/{id}', [customercontroller::class, 'getStudentById']);
+Route::post('/admin/customer', [customerController::class, 'editCustomer'])->name('customer.edit');
+
+
+Route::get('admin/racks/create',[rackcontroller::class,'viewcreaterackpage']);
+Route::post('admin/racks/create',[rackcontroller::class,'insertdata']);

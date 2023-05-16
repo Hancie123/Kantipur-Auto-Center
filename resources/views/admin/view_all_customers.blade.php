@@ -12,107 +12,19 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 <div class="main-panel">
     <div class="content-wrapper">
-        <h3><b>Create Customer Accounts</b></h3><br>
+        <h3><b>Customer List</b></h3><br>
 
+        @if(Session::has('success'))
+        <script>
+        swal("Success!", "{{ Session::get('success') }}", "success");
+        </script>
+        @endif
 
-
-        <div class="container border p-4 w3-round">
-            <form method="post" action="{{url('admin/customer/createaccount')}}">
-                @csrf
-
-                <input type="hidden" value="{{Session::get('User_ID')}}" name="User_ID" type="text">
-                <input type="hidden" value="<?php echo date('Y-m-d'); ?>" name="date" type="text">
-
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Name<sup class="text-danger fw-bold">*</sup></label>
-                        <input class="w3-input w3-border w3-round" name="name" type="text">
-                        <span class="text-danger">
-                            @error('name')
-                            {{$message}}
-                            </script>
-                            @enderror
-                        </span>
-                    </div><br>
-
-                    <div class="col-md-6">
-                        <label>Email<sup class="text-danger fw-bold">*</sup></label>
-                        <input class="w3-input w3-border w3-round" name="email" type="email">
-                        <span class="text-danger">
-                            @error('email')
-                            {{$message}}
-                            </script>
-                            @enderror
-                        </span>
-                    </div><br>
-                </div>
-                <br>
-
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Address<sup class="text-danger fw-bold">*</sup></label>
-                        <input class="w3-input w3-border w3-round" name="address" type="text">
-                        <span class="text-danger">
-                            @error('address')
-                            {{$message}}
-                            </script>
-                            @enderror
-                        </span>
-                    </div><br>
-
-                    <div class="col-md-6">
-                        <label>Mobile No<sup class="text-danger fw-bold">*</sup></label>
-                        <input class="w3-input w3-border w3-round" type="text" name="mobile">
-                        <span class="text-danger">
-                            @error('mobile')
-                            {{$message}}
-                            </script>
-                            @enderror
-                        </span>
-                    </div><br>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>VAT/PAN No</label>
-                        <input class="w3-input w3-border w3-round" type="text" name="vat">
-                        <span class="text-danger">
-                            @error('vat')
-                            {{$message}}
-                            </script>
-                            @enderror
-                        </span>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                    </div>
-                </div>
-
-                <br>
-
-                <button type="submit" class="btn btn-primary mb-2">Create Account</button><br>
-
-
-                @if(Session::has('success'))
-                <script>
-                swal("Success!", "{{ Session::get('success') }}", "success");
-                </script>
-                @endif
-
-                @if(Session::has('fail'))
-                <script>
-                swal("Fail!", "{{ Session::get('fail') }}", "error");
-                </script>
-                @endif
-
-            </form>
-
-        </div>
-        <br><br>
+        @if(Session::has('fail'))
+        <script>
+        swal("Fail!", "{{ Session::get('fail') }}", "error");
+        </script>
+        @endif
 
         <table class="table table-hover table-striped" id="table_data">
             <thead>
@@ -180,7 +92,6 @@
         function editCustomer(id) {
             $.get('/admin/customer/' + id, function(data) {
                 $('#editModal').modal('show');
-                console.log(data.customer_id);
                 $("#id").val(data.customer_id);
                 $("#name").val(data.name);
                 $("#email").val(data.email);
@@ -206,7 +117,6 @@
 
                     <form id="customerEditForm" method="POST" action="{{url('/admin/customer')}}" class="p-4">
                         @csrf
-
                         <input type="hidden" id="id" name="id" />
                         <div class="row">
                             <div class="col-md-6">

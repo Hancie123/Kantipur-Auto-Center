@@ -9,7 +9,9 @@ use App\Models\customermodel;
 class customercontroller extends Controller
 {
     public function viewcustomerform(){
-        return view('admin/createcustomers');
+
+        $customerdata1=customermodel::all();
+        return view('admin/createcustomers',compact('customerdata1'));
     }
 
     public function insertdata(Request $request){
@@ -44,12 +46,29 @@ class customercontroller extends Controller
         return response()->json(['data'=>$customerdata]);
     }
 
-    public function edit($customerId)
-    {
-        // Fetch the customer record by ID
-        $customer = Customer::find($customerId);
+    public function editCustomer(Request $request)
+{
+    $customerId = $request->input('id');
+    $customer = CustomerModel::find($customerId);
+    $customer->name = $request->input('name');
+    $customer->email = $request->input('email');
+    $customer->address = $request->input('address');
+    $customer->mobile = $request->input('mobile');
+    $customer->vat_no = $request->input('vat');
+    $customer->save();
 
-        // Pass the customer data to the view or return it as JSON
-        return view('customer.edit', compact('customer'));
+    return redirect()->back()->with('success', 'Customer Details is Updated Successfully');
+}
+
+    public function getStudentById($id)
+    {
+        $customerdata1 = customermodel::find($id);
+        
+        return response()->json($customerdata1);
+    }
+
+    public function viewcustomerpage()
+    {
+        return view('admin.view_all_customers');
     }
 }

@@ -143,7 +143,8 @@
                                         href="{{url('admin/customer/createaccount')}}">Create
                                         Accounts</a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="{{url('/admin/customers/view')}}">View
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('/admin/customer/view_all_customers')}}">View
                                         Customers</a>
                                 </li>
 
@@ -160,9 +161,8 @@
                         </a>
                         <div class="collapse" id="manageproducts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('/admin/products/create')}}">Create
-                                        Racks</a>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/racks/create')}}">Create
+                                        New Racks</a>
                                 </li>
                                 <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products/view')}}">View
                                         Racks</a>
