@@ -32,4 +32,5 @@ Route::post('/admin/customer', [customerController::class, 'editCustomer'])->nam
 
 
 Route::get('admin/racks/create',[rackcontroller::class,'viewcreaterackpage']);
+Route::get('admin/racks/table',[rackcontroller::class,'viewdata']);
 Route::post('admin/racks/create',[rackcontroller::class,'insertdata']);

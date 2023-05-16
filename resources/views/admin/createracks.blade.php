@@ -65,27 +65,36 @@
                 <tr>
                     <th>Rack ID</th>
                     <th>Name</th>
-                    <th>Actions</th>
+
                 </tr>
             </thead>
-            <tbody>
-                @foreach($racktable as $data)
-                <tr>
-                    <td>{{$data->rack_id}}</td>
-                    <td>{{$data->rack_name}}</td>
-                    <td><a href=""><i class='bx bxs-edit bx-sm'></i></a></td>
-                </tr>
-                @endforeach
-            </tbody>
+
         </table>
 
         <script>
         $(document).ready(function() {
-            $('#table_data').DataTable({
-                order: [
-                    [1, 'desc']
-                ],
+            var table = $('#table_data').DataTable({
+                ajax: {
+                    url: '/admin/racks/table',
+                    type: 'GET',
+                    dataType: 'json'
+                },
+                processing: true,
+                columns: [{
+                    data: 'rack_id'
+                }, {
+                    data: 'rack_name'
+                }],
+                dom: 'Brftip',
+                Buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'print'
+                ]
+
             });
+
         });
         </script>
 
@@ -171,15 +180,6 @@
 </div>
 
 
-<script>
-$(document).ready(function() {
-    $('.select2').select2({
-        placeholder: 'Select an option'
-    });
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 
 

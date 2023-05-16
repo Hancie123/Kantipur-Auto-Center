@@ -10,8 +10,13 @@ class rackcontroller extends Controller
 {
     public function viewcreaterackpage(){
         
+        return view('admin/createracks');
+    }
+
+    public function viewdata(){
         $racktable=rackmodel::all();
-        return view('admin/createracks',compact('racktable'));
+
+        return response()->json(['data'=>$racktable]);
     }
 
     public function insertdata(Request $request){
