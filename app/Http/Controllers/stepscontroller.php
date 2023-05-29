@@ -30,4 +30,10 @@ class stepscontroller extends Controller
         
         
     }
+
+    public function showdata(){
+        
+        $stepstable=stepsmodel::all();
+        return response()->json(['data'=>$stepstable]);
+    }
 }

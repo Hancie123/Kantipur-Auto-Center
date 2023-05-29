@@ -37,4 +37,5 @@ Route::get('admin/racks/table',[rackcontroller::class,'viewdata']);
 Route::post('admin/racks/create',[rackcontroller::class,'insertdata']);
 
 Route::get('admin/steps/create',[stepscontroller::class,'viewcreatestepspage']);
+Route::get('admin/steps/view',[stepscontroller::class,'showdata']);
 Route::post('admin/steps/create',[stepscontroller::class,'insertdata']);

@@ -63,8 +63,8 @@
         <table class="table table-hover table-striped" id="table_data">
             <thead>
                 <tr>
-                    <th>Rack ID</th>
-                    <th>Name</th>
+                    <th>Step ID</th>
+                    <th>Step Name</th>
 
                 </tr>
             </thead>

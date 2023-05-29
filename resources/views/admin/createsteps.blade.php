@@ -72,29 +72,19 @@
         $(document).ready(function() {
             var table = $('#table_data').DataTable({
                 ajax: {
-                    url: '/admin/racks/table',
+                    url: '/admin/steps/view',
                     type: 'GET',
-                    dataType: 'json'
+                    dataType: 'json',
                 },
                 processing: true,
                 columns: [{
-                    data: 'rack_id'
+                    data: 'step_id'
                 }, {
-                    data: 'rack_name'
-                }],
-                dom: 'Brftip',
-                Buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'print'
-                ]
-
+                    data: 'step_name'
+                }]
             });
-
         });
         </script>
-
 
 
 
